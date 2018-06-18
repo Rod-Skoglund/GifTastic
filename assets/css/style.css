@@ -1,0 +1,31 @@
+/* ********************************************* */
+/* Class - Coding Bootcamp MW                    */
+/* Assignment #6 - GifTastic                     */
+/* Author: Rod Skoglund                          */
+/* Stype Sheet for of Assignment #6              */
+/* ********************************************* */
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.item-btn {
+    color: aqua;
+    font-size: 1vw;
+    background-color: #0400ff;
+}
+
+#add-item {
+    color: lightgoldenrodyellow;
+    font-size: 1vw;
+    background-color: #0400ff;
+}
+
+.image {
+    display: inline-block;
+    /* float: left; */
+    padding: 5px;
+    /* margin: 5px; */
+}
+
