@@ -1,31 +1,41 @@
-/* ********************************************* */
-/* Class - Coding Bootcamp MW                    */
-/* Assignment #6 - GifTastic                     */
-/* Author: Rod Skoglund                          */
-/* Stype Sheet for of Assignment #6              */
-/* ********************************************* */
+/* ************************************************** */
+/* Class - Coding Bootcamp MW                         */
+/* Assignment #6 - GifTastic                          */
+/* Author: Rod Skoglund                               */
+/* Stype Sheet for of Assignment #6                   */
+/* ************************************************** */
 
+/* Style settings for the title/heading of this page. */
+/* Make the font size responsive.                     */
+h1 {
+    font-size: 3vw;
+}
+
+/* Style settings for the ratings display.            */
 p {
     margin: 0;
     padding: 0;
 }
 
+/* Style settings for the buttons display.            */
 .item-btn {
     color: aqua;
-    font-size: 1vw;
+    font-size: 1.5vw;
     background-color: #0400ff;
+    margin: 2px;
 }
 
+/* Style settings for the Add Item button display.    */
 #add-item {
     color: lightgoldenrodyellow;
-    font-size: 1vw;
+    font-size: 1.5vw;
     background-color: #0400ff;
 }
 
+/* Style settings for the image display.              */
 .image {
     display: inline-block;
     /* float: left; */
     padding: 5px;
     /* margin: 5px; */
 }
-

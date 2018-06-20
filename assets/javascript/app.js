@@ -6,14 +6,16 @@
 // *************************************************
 
 // Declare Variables
-var topics = ["Clouds", "Snow", "Northern Lights", "Lightning", "forest"];
+var topics = ["Clouds", "Snow", "Northern Lights", "Lightning", "Forest"];
 
+// Get 10 still images for the selected button item
 function displayItemInfo() {
 
+  //Create API URL to get the 10 images
   var myApiKey = "DFX3GIpizTjjNNUL9mhS7ZkHZq86fQ41";
   var thisItem = $(this).attr("data-name") + "+nature";
-
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + thisItem + "&api_key=" + myApiKey + "&limit=10&rating=pg-13";
+
 
   // Creates AJAX call for the specific thisItem button being clicked
   $.ajax({
@@ -21,22 +23,23 @@ function displayItemInfo() {
     method: "GET"
   }).then(function(response) {
 
-    // Creates a div to hold the movie
-    // var itemDiv = $("<div>");
-    // itemDiv.addClass("image");
-    // console.log(response);
+    //create variable to align with the data from the Giphy API call
     thisData = response.data;
-    console.log("thisData = ", thisData.length);
 
+    // For each item in teh data array, capture the still and animated images URLs
+    // to be added to the diaplay
     for (var i = 0; i < thisData.length; i++) {
+        //Create container div tag to hold the image and rating
         var itemDiv = $("<div>");
         itemDiv.addClass("image");
         console.log(response);
-        // thisData = response.data;
-        console.log("in img creation loop - i = " + i);
+
+        //Create the paragraph tag to hold the image rating
         var ratingP = $("<p>");
         var thisRating = "Rating: " + thisData[i].rating;
         ratingP.text(thisRating);
+        
+        //Crete an image tag to hold one image
         var itemImg = $("<img>");
         itemImg.attr("src", thisData[i].images.fixed_height_still.url);
         itemImg.attr("data-state", "still");
@@ -44,16 +47,19 @@ function displayItemInfo() {
         itemImg.attr("data-animate", thisData[i].images.fixed_height.url);
         itemImg.attr("data-rating", thisRating);
         itemImg.addClass("gif");
-        itemDiv.append(ratingP);
-        itemDiv.append(itemImg);
         
+        //Add the rating and picture tags to the container tag
+        itemDiv.append(itemImg);
+        itemDiv.append(ratingP);
+
         console.log("itemImg.attr('data-state') = " + itemImg.attr("data-state"));
         console.log("thisData[i].images.fixed_height_still.url = " + thisData[i].images.fixed_height_still.url);
         console.log("thisData[i].images.fixed_height.url = " + thisData[i].images.fixed_height.url);
         console.log("**************************************");
+        
+        //Add the image container tag to the beginning of the display container tag
         $("#gifs-appear-here").prepend(itemDiv);
-}
-
+    }
 
   });
 
@@ -65,15 +71,14 @@ function renderButtons() {
   // (this is necessary otherwise you will have repeat buttons)
   $("#buttons-view").empty();
   
-  // Loops through the array of items
+  // Loops through the array of topics so buttons can be created for each one
   for (var i = 0; i < topics.length; i++) {
-    // Then dynamicaly generates buttons for each item in the array
+    // Dynamicaly generate buttons for each item in the array
     var a = $("<button>");
-    // Adds a class of item-btn to our button
+    // Adds a class and attributes to the new button
     a.addClass("item-btn");
-    // Added a data-name attribute
+    // Added a unique data-name attribute
     a.attr("data-name", topics[i]);
-    // Provided the initial button text
     a.text(topics[i]);
     // Added the button to the buttons-view div
     $("#buttons-view").append(a);
@@ -91,26 +96,28 @@ $("#add-item").on("click", function(event) {
         topics.push(thisItem);
     }
     
+    //Clear the input field on the page
     $("#item-input").val("");
 
-    // Calling renderButtons which handles the processing of our movie array
+    // Calling renderButtons which handles the processing of our topic array
     renderButtons();
   });
 
-// Adding click event listeners to all elements with a class of "movie"
+// Adding click event listeners to all elements with a class of "item-btn"
 $(document).on("click", ".item-btn", displayItemInfo);
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
+// Click handler for dynamically created images that will toggle between still and 
+// animated image display
 $("body").on("click", ".gif", function(event) {
     event.preventDefault();
-    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    // Capture the current state of this image
     var state = $(this).attr("data-state");
-    console.log("in .gif click - state = " + state);
-    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-    // Then, set the image's data-state to animate
-    // Else set src to the data-still value
+
+    // Toggle the image between still and animated based on current state of the 
+    // image and then toggle the current state to agree with the active image display.
     if (state === "still") {
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
